@@ -23,6 +23,9 @@ import './Button';
 import './Input';
 import './Login';
 import './Form';
+import './Header';
+import './Banner';
+import './Footer';
 
 import { MapTo } from '@adobe/aem-react-editable-components';
 

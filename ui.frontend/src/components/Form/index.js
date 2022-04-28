@@ -40,7 +40,7 @@ const Form = () => {
         {error && <Img src={errorMessage} alt="Error" />}
 
         <ButtonContainer>
-            <Button label="Entrar" type="submit" layOut="LogIn" onClick={handleValidation}/>
+            <Button layOut="LogIn" onClick={handleValidation}/>
         </ButtonContainer>
       </form>
   </div>;

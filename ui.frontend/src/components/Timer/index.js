@@ -8,29 +8,32 @@ import {
     Time,
  } from './style';
 
-const Timer = () => {
 
-    const [time, setTime] = React.useState('');
+let count = 180;
+
+const Timer = ({ reset }) => {
+    const [time, setTime] = React.useState(180);
 
     const updateTime = () => {
-        const end = 180;
-        const now = 0;
-
-        const distance = end - now;
-
-        if(distance <= 0) {
+        if(count <= 0) {
             setTime(0);
             return;
         }
 
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        setTime(seconds)
+        count -= 1
+        setTime(count);
     }
 
     React.useEffect(() => {
         setInterval(() => updateTime(), 1000);
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    React.useEffect(() => { 
+        count = 180;
+        setTime(180);
+     }, [reset]);
 
     return (
         <TimeContainer>
@@ -46,6 +49,6 @@ const Timer = () => {
     );
 };
 
-export default MapTo('reactapp/components/button')(
+export default MapTo('reactapp/components/timer')(
     Timer,
   );

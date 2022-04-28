@@ -2,6 +2,11 @@ import styled from 'styled-components';
 
 export const TimeContainer = styled.div`
   display: flex;
+
+  @media all and (max-width: 474px) {
+    visibility: hidden;
+    position: absolute;
+  }
 `;
 
 export const TimeText = styled.div`
@@ -17,7 +22,7 @@ export const TimeText = styled.div`
 `;
 
 export const SecondsContainer = styled.div`
-  padding: 10px;
+  margin: 16px 40px 0px 40px;
 `;
 
 export const Time = styled.div`
