@@ -13,15 +13,30 @@ const Form = () => {
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState(false);
 
-  const handleValidation = () => {
+  const handleFields = (fields, formElements) => fields
+    .map(field => ({
+      [field]: formElements.namedItem(field).value
+    }))
+    .reduce((current, next) => ({ ...current, ...next }));
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    let fields = [ 'user', 'password' ];
+
+    const formElements = e.target.elements;
+
+    const { user, password } = handleFields(fields, formElements)
+
     if (user === 'admin' && password === 'admin') {
       localStorage.setItem('user', user);
       localStorage.setItem('password', password);
+      console.log('deu boa');
+      // redirect
+    } else {
+      setError(true);
     }
-    else setError(true);
   }
-
-  React.useEffect(() => { console.log(error) }, [error]);
 
   React.useEffect(() => {
     const user = localStorage.getItem('user');
@@ -34,13 +49,26 @@ const Form = () => {
       <TitleContainer>
         <span>Login</span>
       </TitleContainer>
-      <form>
-        <Input text="Email" value={user} setValue={setUser} />
-        <Input text="Password" type="password" value={password} setValue={setPassword}/>
+      <form onSubmit={handleSubmit}>
+        <Input
+          name="user"
+          text="Usuário"
+          required
+          value={user}
+          setValue={setUser}
+        />
+        <Input
+          name="password"
+          text="Password"
+          type="password"
+          required
+          value={password}
+          setValue={setPassword}
+        />
         {error && <Img src={errorMessage} alt="Error" />}
 
         <ButtonContainer>
-            <Button layOut="LogIn" onClick={handleValidation}/>
+            <Button label="Entrar" type="submit" />
         </ButtonContainer>
       </form>
   </div>;
